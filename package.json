@@ -1,10 +1,10 @@
 {
   "name": "clean-ddd-cli",
   "version": "0.0.1",
-  "main": "bin/index.js",
+  "main": "dist/index.js",
   "license": "MIT",
   "bin": {
-    "ddd-cli": "./bin/index.js"
+    "ddd-cli": "./dist/index.js"
   },
   "dependencies": {
     "string-replace-stream": "^0.0.2",
