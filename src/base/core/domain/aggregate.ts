@@ -32,9 +32,9 @@ export abstract class Aggregate<T> extends Entity<T> {
     const domainEventClass = Reflect.getPrototypeOf(domainEvent);
     console.info(
       `[Domain Event Created]:`,
-      thisClass.constructor.name,
+      thisClass?.constructor.name,
       '==>',
-      domainEventClass.constructor.name,
+      domainEventClass?.constructor.name,
     );
   }
 }

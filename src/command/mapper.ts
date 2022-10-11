@@ -1,10 +1,12 @@
 import path from 'path'
 import { camelize, copyFile, upperFirstLetter } from "../utils"
 
-function mapper(moduleName: string, mapperName: string){
+function mapper(moduleName: string, mapperName: string, force?:boolean){
   const pathFolder = path.join(
     __dirname, 
     '..', 
+    '..', 
+    'src', 
     'base', 
     'modules', 
     'generic', 
@@ -48,7 +50,8 @@ function mapper(moduleName: string, mapperName: string){
         current: 'generic',
         next: `${prefix === 'value-object' ? 'value-object/' : ''}${name}`
       }
-    ]
+    ],
+    forceRewrite: force
   })
 }
 

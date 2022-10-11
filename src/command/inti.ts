@@ -3,7 +3,7 @@ import { copyDir, getFileList } from "../utils"
 
 function init(){
   const files = new Set<string>()
-  const pathFolder = path.join(__dirname, '..', 'base', 'core')
+  const pathFolder = path.join(__dirname, '..', '..', 'src', 'base', 'core')
   getFileList(pathFolder)
   .filter(file =>  !file.includes('.spec'))
   .map(file => {

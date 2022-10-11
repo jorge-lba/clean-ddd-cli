@@ -43,7 +43,7 @@ export abstract class ValueObject<T> {
       return false;
     }
 
-    return Object.entries(this.props)
+    return Object.entries(this.props as any)
       .filter(
         ([key]) =>
           key !== 'id' &&

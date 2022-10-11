@@ -1,5 +1,5 @@
 Arguments: 
-  /home/jorge/.nvm/versions/node/v18.2.0/bin/node /home/jorge/.nvm/versions/node/v18.2.0/bin/yarn add -D @types/string-replace-stream
+  /home/jorge/.nvm/versions/node/v18.2.0/bin/node /home/jorge/.nvm/versions/node/v18.2.0/bin/yarn add -D jestjs
 
 PATH: 
   /home/jorge/.bun/bin:/home/jorge/.bun/bin:/home/jorge/.nvm/versions/node/v18.2.0/bin:/home/jorge/.local/share/zinit/polaris/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/usr/local/go/bin:/usr/local/go/bin
@@ -14,7 +14,7 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fstring-replace-stream: Not found
+  Error: https://registry.yarnpkg.com/jestjs: Not found
       at params.callback [as _callback] (/home/jorge/.nvm/versions/node/v18.2.0/lib/node_modules/yarn/lib/cli.js:66138:18)
       at self.callback (/home/jorge/.nvm/versions/node/v18.2.0/lib/node_modules/yarn/lib/cli.js:140883:22)
       at Request.emit (node:events:527:28)
@@ -28,8 +28,8 @@ Trace:
 
 npm manifest: 
   {
-    "name": "ddd-cli",
-    "version": "1.0.0",
+    "name": "clean-ddd-cli",
+    "version": "0.0.1",
     "main": "bin/index.js",
     "license": "MIT",
     "bin": {

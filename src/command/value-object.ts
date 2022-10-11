@@ -5,6 +5,8 @@ function valueObject(moduleName: string, valueObjectName: string){
   const pathFolder = path.join(
     __dirname, 
     '..', 
+    '..', 
+    'src', 
     'base', 
     'modules', 
     'generic', 

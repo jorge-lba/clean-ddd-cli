@@ -5,6 +5,8 @@ function aggregate(moduleName: string, aggregateName: string){
   const pathFolder = path.join(
     __dirname, 
     '..', 
+    '..', 
+    'src', 
     'base', 
     'modules', 
     'generic', 

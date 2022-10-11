@@ -5,6 +5,8 @@ function entity(moduleName: string, entityName: string){
   const pathFolder = path.join(
     __dirname, 
     '..', 
+    '..', 
+    'src', 
     'base', 
     'modules', 
     'generic', 

@@ -1,7 +1,7 @@
 import { IUseCaseEvent } from './use-case-events.interface';
 
 export class UseCaseEvents {
-  private static handlersMap = {};
+  private static handlersMap: {[key: string]: any} = {};
 
   public static register(
     callback: (event: IUseCaseEvent) => void,
@@ -22,9 +22,9 @@ export class UseCaseEvents {
     const useCaseEventClass = Reflect.getPrototypeOf(useCaseEvent);
     console.info(
       `[UseCase Event Dispatched]:`,
-      thisClass.constructor.name,
+      thisClass?.constructor.name,
       '==>',
-      useCaseEventClass.constructor.name,
+      useCaseEventClass?.constructor.name,
     );
   }
 

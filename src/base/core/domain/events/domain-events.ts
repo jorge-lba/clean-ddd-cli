@@ -2,7 +2,7 @@ import { IDomainEvent } from './domain-events.interface';
 import { Aggregate } from '../aggregate';
 
 export class DomainEvents {
-  private static handlersMap = {};
+  private static handlersMap: {[key: string]: any} = {};
   private static markedAggregates: Aggregate<any>[] = [];
 
   /**
@@ -35,12 +35,14 @@ export class DomainEvents {
   }
 
   private static findMarkedAggregateByID(id: string): Aggregate<any> {
-    let found: Aggregate<any> = null;
+    let found: Aggregate<any> | null = null;
     for (const aggregate of this.markedAggregates) {
       if (aggregate.id == id) {
         found = aggregate;
       }
     }
+
+    if(!found) throw new Error('Marked Aggregate not found.')
 
     return found;
   }

@@ -93,9 +93,13 @@ function copyFile({
   ignore,
   replaceWord,
   replaceWords,
+  forceRewrite
 }: Omit<CopyDirProps, 'callback'>){
   const fileAlreadyExists = fs.existsSync(dest)
-  // if(fileAlreadyExists) return
+  if(fileAlreadyExists && !forceRewrite){
+    console.warn(`File already exists. Add '-f true' to rewrite it.`)
+    return
+  } 
 
   if(ignore && src.includes(ignore)) return
 
@@ -133,7 +137,8 @@ type CopyDirProps = {
   replaceWords?: {
     current: string,
     next: string
-  }[]
+  }[],
+  forceRewrite?: boolean,
 }
 
 function readDir(fullPath: string){

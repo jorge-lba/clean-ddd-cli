@@ -7,6 +7,8 @@ function useCase(moduleName: string, useCaseName: string){
   const pathFolder = path.join(
     __dirname, 
     '..', 
+    '..', 
+    'src',
     'base', 
     'modules', 
     'generic', 

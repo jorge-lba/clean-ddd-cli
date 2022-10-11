@@ -31,6 +31,10 @@ yargs(hideBin(process.argv))
         alias: 'm',
         description: 'Module'
       })
+      .option('force', {
+        alias: 'f',
+        description: 'Force'
+      })
       .command(
         'use-case', 
         'create use-case', 
@@ -75,9 +79,9 @@ yargs(hideBin(process.argv))
         'mapper', 
         'create mapper', 
         () => {},
-        ({name, module}) => {
+        ({name, module, force}) => {
           if(name && module) {
-            mapper(String(module), String(name))
+            mapper(String(module), String(name), force === 'true')
           }
         }
       )
