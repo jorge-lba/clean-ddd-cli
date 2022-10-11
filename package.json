@@ -1,6 +1,6 @@
 {
-  "name": "ddd-cli",
-  "version": "1.0.0",
+  "name": "clean-ddd-cli",
+  "version": "0.0.1",
   "main": "bin/index.js",
   "license": "MIT",
   "bin": {
