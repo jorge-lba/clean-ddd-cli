@@ -1,7 +1,8 @@
 import path from 'path'
-import { camelize, copyFile, upperFirstLetter } from "../utils"
+import { camelize, camelToSnakeCase, copyFile, upperFirstLetter } from "../utils"
 
-function mapper(moduleName: string, mapperName: string, force?:boolean){
+function mapper(moduleName: string, mapperName: string, type: string, force?:boolean){
+  console.log(type)
   const pathFolder = path.join(
     __dirname, 
     '..', 
@@ -13,24 +14,16 @@ function mapper(moduleName: string, mapperName: string, force?:boolean){
     'mapper', 
     'generic.mapper.ts'
   )
-
-  const snakeMapperName = mapperName
-    .replace(/([a-z])([A-Z])/g, '$1 $2')
-    .split(' ')
-    .join('-')
-    .toLocaleLowerCase()
   
-  const regex = new RegExp(/(-value-object|-entity|-aggregate)/)
-  const [name, px] = snakeMapperName.split(regex)
-  const prefix = px.replace('-', '')
-  const compositeName = prefix !== 'value-object' ? `${name}-${prefix}` : name
+  const name= camelToSnakeCase(mapperName)
+  const compositeName = type !== 'value-object' ? `${name}-${type}` : name
 
 
   copyFile({
     src: pathFolder,
     dest: pathFolder.replace(
       pathFolder, 
-      `src/modules/${moduleName}/mapper/${name}.${prefix}.mapper.ts`
+      `src/modules/${moduleName}/mapper/${name}.${type}.mapper.ts`
     ),
     ignore: '.spec.ts',
     replaceWords: [
@@ -44,11 +37,11 @@ function mapper(moduleName: string, mapperName: string, force?:boolean){
       },
       {
         current: 'aggregate',
-        next: prefix
+        next: type
       },
       {
         current: 'generic',
-        next: `${prefix === 'value-object' ? 'value-object/' : ''}${name}`
+        next: `${type === 'value-object' ? 'value-object/' : ''}${name}`
       }
     ],
     forceRewrite: force

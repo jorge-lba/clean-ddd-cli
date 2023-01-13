@@ -114,7 +114,7 @@ function copyFile({
       content = content.pipe(stringReplaceStream(value.current, value.next))
     }
     content.pipe(fs.createWriteStream(dest));
-    content.on('end', () => autoMapperByDomainProps(dest, 'string'))
+    // content.on('end', () => autoMapperByDomainProps(dest, 'string'))
   } else if(replaceWord){
     content
     .pipe(stringReplaceStream(replaceWord?.current, replaceWord?.next))

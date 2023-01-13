@@ -7,6 +7,7 @@ import { aggregate } from './command/aggregate'
 import { entity } from './command/entity'
 import { init } from './command/inti'
 import { mapper } from './command/mapper'
+import { repository } from './command/repository'
 import { useCase } from './command/use-case'
 import { valueObject } from './command/value-object'
 
@@ -36,13 +37,19 @@ yargs(hideBin(process.argv))
         alias: 'f',
         description: 'Force'
       })
+      .array('name')
       .command(
         'use-case', 
         'create use-case', 
         () => {}, 
         ({name, module}) => {
           if(name && module) {
-            useCase(String(module), String(name))
+            Array.isArray(name) 
+              ? name.forEach( (value) =>
+                  useCase(String(module), String(value))
+                )
+              : useCase(String(module), String(name))
+            
           }
         }
       )
@@ -53,6 +60,16 @@ yargs(hideBin(process.argv))
         ({name, module}) => {
           if(name && module) {
             aggregate(String(module), String(name))
+          }
+        }
+      )
+      .command(
+        'repository', 
+        'create repository', 
+        () => {},
+        ({name, module}) => {
+          if(name && module) {
+            repository(String(module), String(name))
           }
         }
       )
@@ -79,10 +96,22 @@ yargs(hideBin(process.argv))
       .command(
         'mapper', 
         'create mapper', 
-        () => {},
-        ({name, module, force}) => {
+        (yargs) => {
+          return yargs.option('type', {
+            alias: 't',
+            description: 'Select domain type',
+            choices: ['aggregate', 'entity', 'value-object'],
+            requiresArg: true
+          })
+          .demandOption(['type'], 'Please provide both type arguments to work with this tool')
+        },
+        ({name, module, force, type}) => {
           if(name && module) {
-            mapper(String(module), String(name), force === 'true')
+            Array.isArray(name) 
+              ? name.forEach( (value) =>
+                  mapper(String(module), String(value), type, force === 'true')
+                )
+              : mapper(String(module), String(name), type, force === 'true')
           }
         }
       )

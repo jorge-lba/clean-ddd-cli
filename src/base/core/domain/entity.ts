@@ -45,6 +45,14 @@ abstract class Entity<Props> {
     return this._baseDates.deletedAt;
   }
 
+  get dates() {
+    return {
+      createdAt: this._baseDates.createdAt,
+      updatedAt: this._baseDates.updatedAt,
+      deletedAt: this._baseDates.deletedAt,
+    };
+  }
+
   protected includeNewError(error: Error) {
     this._errors.set(randomUUID(), error);
   }

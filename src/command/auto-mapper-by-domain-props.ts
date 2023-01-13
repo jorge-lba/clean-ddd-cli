@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import { camelToSnakeCase } from '../utils'
 
-export function autoMapperByDomainProps(dest: string, idType: 'string' | 'number') {
+export function autoMapperByDomainProps(dest: string, idType: 'string' | 'number', type?: string) {
   const file = dest?.split('/').pop()?.replace('mapper.', '')
   if(!file) throw new Error('File not is valid')
   
@@ -13,7 +13,7 @@ export function autoMapperByDomainProps(dest: string, idType: 'string' | 'number
       'modules', 
       dest?.split('/')[2], 
       'domain',
-      'value-object', 
+      type === 'value-object' ? 'value-object' : '', 
       file
     ), 
     'utf-8'
