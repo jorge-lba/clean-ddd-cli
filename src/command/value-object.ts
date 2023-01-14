@@ -1,7 +1,7 @@
-import path from 'path'
-import { camelize, copyFile, upperFirstLetter } from '../utils'
+import path from 'path';
+import { camelize, copyFile, upperFirstLetter } from '../utils';
 
-function valueObject (moduleName: string, valueObjectName: string) {
+function valueObject(moduleName: string, valueObjectName: string) {
   const pathFolder = path.join(
     __dirname,
     '..',
@@ -12,18 +12,21 @@ function valueObject (moduleName: string, valueObjectName: string) {
     'generic',
     'domain',
     'value-object',
-    'generic.value-object.ts'
-  )
+    'generic.value-object.ts',
+  );
 
   copyFile({
     src: pathFolder,
-    dest: pathFolder.replace(pathFolder, `src/modules/${moduleName}/domain/value-object/${valueObjectName}.value-object.ts`),
+    dest: pathFolder.replace(
+      pathFolder,
+      `src/modules/${moduleName}/domain/value-object/${valueObjectName}.value-object.ts`,
+    ),
     ignore: '.spec.ts',
     replaceWord: {
       current: 'Generic',
-      next: upperFirstLetter(camelize(valueObjectName))
-    }
-  })
+      next: upperFirstLetter(camelize(valueObjectName)),
+    },
+  });
 }
 
-export { valueObject }
+export { valueObject };

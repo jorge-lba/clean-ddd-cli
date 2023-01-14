@@ -1,12 +1,12 @@
-import { DomainError } from './DomainError'
+import { DomainError } from './DomainError';
 
 export class MissingRequiredFieldError extends DomainError {
-  constructor (props: MissingRequiredFieldProps) {
+  constructor(props: MissingRequiredFieldProps) {
     super({
       name: 'MissingRequiredField',
       message: `Some fields were not provided: ${props.fields}`,
-      context: props.context
-    })
+      context: props.context,
+    });
   }
 }
 

@@ -1,169 +1,165 @@
-import fs from 'fs'
-import path from 'path'
+import fs from 'fs';
+import path from 'path';
 // @ts-ignore
-import stringReplaceStream from 'string-replace-stream'
-import { autoMapperByDomainProps } from '../command/auto-mapper-by-domain-props'
+import stringReplaceStream from 'string-replace-stream';
+import { autoMapperByDomainProps } from '../command/auto-mapper-by-domain-props';
 
-function createFile (directoryPath: string, fileName: string, content: string) {
-  const values = directoryPath.split('/')
-  const p = path.join('.', ...values)
+function createFile(directoryPath: string, fileName: string, content: string) {
+  const values = directoryPath.split('/');
+  const p = path.join('.', ...values);
 
   fs.mkdirSync(p, {
-    recursive: true
-  })
+    recursive: true,
+  });
 
-  fs.writeFileSync(`${p}/${fileName}`, content)
+  fs.writeFileSync(`${p}/${fileName}`, content);
 }
 
-function dtoFileContent (name: string) {
-  const pathFile = path.join(__dirname, 'base', 'dto.ts')
-  const content = fs.readFileSync(pathFile, 'utf-8')
+function dtoFileContent(name: string) {
+  const pathFile = path.join(__dirname, 'base', 'dto.ts');
+  const content = fs.readFileSync(pathFile, 'utf-8');
 
-  return content.replace(/Generic/g, camelize(upperFirstLetter(name)))
+  return content.replace(/Generic/g, camelize(upperFirstLetter(name)));
 }
 
-function camelize (str: string) {
+function camelize(str: string) {
   return str.replace(/\W+(.)/g, function (match: any, chr: any) {
-    return chr.toUpperCase()
-  })
+    return chr.toUpperCase();
+  });
 }
 
-function camelToSnakeCase (str: string) {
-  return str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`)
+function camelToSnakeCase(str: string) {
+  return str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
 }
 
-function upperFirstLetter (str: string) {
-  return str.charAt(0).toUpperCase() +
-  str.slice(1)
+function upperFirstLetter(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-function copyDir ({
-  src, dest, callback, ignore, replaceWord
+async function copyDir({
+  src,
+  dest,
+  callback,
+  ignore,
+  replaceWord,
 }: CopyDirProps) {
-  const copy = (copySrc: string, copyDest: string) => {
-    fs.readdir(copySrc, (err, list) => {
-      if (err) {
-        callback(err)
-        return
-      }
-      list.forEach((item) => {
-        const ss = path.resolve(copySrc, item)
-        fs.stat(ss, (err, stat) => {
-          if (err) {
-            callback(err)
+  const copy = async (copySrc: string, copyDest: string) => {
+    const list = fs.readdirSync(copySrc);
+    await Promise.all(
+      list.map(async (item) => {
+        const curSrc = path.resolve(copySrc, item);
+        const curDest = path.resolve(copyDest, item);
+        const stat = fs.statSync(curSrc);
+
+        if (stat.isFile()) {
+          const fileAlreadyExists = fs.existsSync(curDest);
+          if (fileAlreadyExists) return;
+          if (ignore && curSrc.includes(ignore)) return;
+          const content = fs.createReadStream(curSrc);
+          if (replaceWord) {
+            content
+              .pipe(
+                stringReplaceStream(replaceWord?.current, replaceWord?.next),
+              )
+              .pipe(fs.createWriteStream(curDest));
           } else {
-            const curSrc = path.resolve(copySrc, item)
-            const curDest = path.resolve(copyDest, item)
-
-            if (stat.isFile()) {
-              const fileAlreadyExists = fs.existsSync(curDest)
-              if (fileAlreadyExists) return
-              if (ignore && curSrc.includes(ignore)) return
-              const content = fs.createReadStream(curSrc)
-              if (replaceWord) {
-                content
-                  .pipe(stringReplaceStream(replaceWord?.current, replaceWord?.next))
-                  .pipe(fs.createWriteStream(curDest))
-              } else {
-                content.pipe(fs.createWriteStream(curDest))
-              }
-            } else if (stat.isDirectory()) {
-              fs.mkdirSync(curDest, { recursive: true })
-              copy(curSrc, curDest)
-            }
+            content.pipe(fs.createWriteStream(curDest));
           }
-        })
-      })
-    })
+
+          await new Promise((resolve, reject) => {
+            content.on('end', resolve);
+            content.on('error', reject);
+          });
+        } else if (stat.isDirectory()) {
+          fs.mkdirSync(curDest, { recursive: true });
+          await copy(curSrc, curDest);
+        }
+      }),
+    );
+  };
+
+  try {
+    fs.accessSync(dest);
+    await copy(src, dest);
+  } catch (error) {
+    fs.mkdirSync(dest, { recursive: true });
+    await copy(src, dest);
   }
+}
 
-  fs.access(dest, (err) => {
-    if (err) {
-      fs.mkdirSync(dest, { recursive: true })
-    }
-    copy(src, dest)
-  })
-};
-
-function copyFile ({
+function copyFile({
   src,
   dest,
   ignore,
   replaceWord,
   replaceWords,
-  forceRewrite
+  forceRewrite,
 }: Omit<CopyDirProps, 'callback'>) {
-  const fileAlreadyExists = fs.existsSync(dest)
+  const fileAlreadyExists = fs.existsSync(dest);
   if (fileAlreadyExists && !forceRewrite) {
-    console.warn('File already exists. Add \'-f true\' to rewrite it.')
-    return
+    console.warn("File already exists. Add '-f true' to rewrite it.");
+    return;
   }
 
-  if (ignore && src.includes(ignore)) return
+  if (ignore && src.includes(ignore)) return;
 
   if (!fileAlreadyExists) {
-    fs.mkdirSync(
-      dest.split('/').slice(0, -1).join('/'),
-      { recursive: true }
-    )
+    fs.mkdirSync(dest.split('/').slice(0, -1).join('/'), { recursive: true });
   }
 
-  let content = fs.createReadStream(src)
+  let content = fs.createReadStream(src);
   if (replaceWords && replaceWords?.length > 0) {
     for (const value of replaceWords) {
-      content = content.pipe(stringReplaceStream(value.current, value.next))
+      content = content.pipe(stringReplaceStream(value.current, value.next));
     }
-    content.pipe(fs.createWriteStream(dest))
+    content.pipe(fs.createWriteStream(dest));
     // content.on('end', () => autoMapperByDomainProps(dest, 'string'))
   } else if (replaceWord) {
     content
       .pipe(stringReplaceStream(replaceWord?.current, replaceWord?.next))
-      .pipe(fs.createWriteStream(dest))
+      .pipe(fs.createWriteStream(dest));
   } else {
     // content.pipe(fs.createWriteStream(dest));
   }
 }
 
 type CopyDirProps = {
-  src: string,
-  dest: string,
-  callback: (err: any) => any,
-  ignore?: string,
+  src: string;
+  dest: string;
+  callback: (err: any) => any;
+  ignore?: string;
   replaceWord?: {
-    current: string,
-    next: string
-  },
+    current: string;
+    next: string;
+  };
   replaceWords?: {
-    current: string,
-    next: string
-  }[],
-  forceRewrite?: boolean,
-}
+    current: string;
+    next: string;
+  }[];
+  forceRewrite?: boolean;
+};
 
-function readDir (fullPath: string) {
+function readDir(fullPath: string) {
   fs.readdir(fullPath, (error, files) => {
-    if (error) console.log(error)
-    files.forEach(file => console.log(file))
-  })
+    if (error) console.log(error);
+    files.forEach((file) => console.log(file));
+  });
 }
 
-function getFileList (dirName: string) {
-  let files: string[] = []
-  const items = fs.readdirSync(dirName, { withFileTypes: true })
+function getFileList(dirName: string) {
+  let files: string[] = [];
+  const items = fs.readdirSync(dirName, { withFileTypes: true });
 
   for (const item of items) {
     if (item.isDirectory()) {
-      files = [
-        ...files,
-        ...getFileList(`${dirName}/${item.name}`)
-      ]
+      files = [...files, ...getFileList(`${dirName}/${item.name}`)];
     } else {
-      files.push(`${dirName}/${item.name}`)
+      files.push(`${dirName}/${item.name}`);
     }
   }
 
-  return files
-};
+  return files;
+}
 
 export {
   camelize,
@@ -174,5 +170,5 @@ export {
   readDir,
   getFileList,
   copyFile,
-  camelToSnakeCase
-}
+  camelToSnakeCase,
+};

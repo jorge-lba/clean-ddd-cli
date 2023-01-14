@@ -1,29 +1,29 @@
-import { InternalDomainError } from './InternalDomainError'
+import { InternalDomainError } from './InternalDomainError';
 
 class TestInternalDomainError extends InternalDomainError {
-  constructor () {
+  constructor() {
     super({
       message: 'error-message',
       context: 'error-context',
-      name: 'error-name'
-    })
+      name: 'error-name',
+    });
   }
 }
 
 describe('Errors - Domain Error', () => {
-  let domain: TestInternalDomainError
+  let domain: TestInternalDomainError;
 
   beforeAll(() => {
-    domain = new TestInternalDomainError()
-  })
+    domain = new TestInternalDomainError();
+  });
 
   it('should map correctly error data', async () => {
     expect(domain.values).toEqual({
       message: 'error-message',
       context: 'error-context',
-      name: 'error-name',
+      name: 'TestInternalDomainError',
       date: expect.any(Date),
-      id: expect.any(String)
-    })
-  })
-})
+      id: expect.any(String),
+    });
+  });
+});

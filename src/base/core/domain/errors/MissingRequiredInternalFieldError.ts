@@ -1,12 +1,12 @@
-import { InternalDomainError } from './InternalDomainError'
+import { InternalDomainError } from './InternalDomainError';
 
 export class MissingRequiredInternalFieldError extends InternalDomainError {
-  constructor (props: MissingRequiredInternalFieldProps) {
+  constructor(props: MissingRequiredInternalFieldProps) {
     super({
       name: 'MissingRequiredInternalFieldError',
       message: `These internal fields are mandatory requirements: ${props.fields}`,
-      context: props.context
-    })
+      context: props.context,
+    });
   }
 }
 

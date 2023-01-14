@@ -1,12 +1,12 @@
-import { Entity } from '../../../core/domain'
-import { BaseDates } from '../../../core/domain/types'
+import { Entity } from '../../../core/domain';
+import { BaseDates } from '../../../core/domain/types';
 
 class GenericEntity extends Entity<GenericProps> {
-  create (props: GenericProps, id?: string, baseDates?: BaseDates) {
-    return new GenericEntity(props, id, baseDates)
+  create(props: GenericProps, id?: string, baseDates?: BaseDates) {
+    return new GenericEntity(props, id, baseDates);
   }
 }
 
-type GenericProps = {}
+type GenericProps = {};
 
-export { GenericEntity, GenericProps }
+export { GenericEntity, GenericProps };
