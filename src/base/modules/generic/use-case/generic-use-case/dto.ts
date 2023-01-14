@@ -2,4 +2,4 @@ class GenericDTO {}
 
 class GenericResponseDTO {}
 
-export { GenericDTO, GenericResponseDTO }
+export { GenericDTO, GenericResponseDTO };

@@ -5,7 +5,7 @@ class TestDomainError extends DomainError {
     super({
       message: 'error-message',
       context: 'error-context',
-      name: 'error-name',
+      name: 'TestDomainError',
     });
   }
 }
@@ -21,7 +21,7 @@ describe('Errors - Domain Error', () => {
     expect(domain.values).toEqual({
       message: 'error-message',
       context: 'error-context',
-      name: 'error-name',
+      name: 'TestDomainError',
       date: expect.any(Date),
       id: expect.any(String),
     });

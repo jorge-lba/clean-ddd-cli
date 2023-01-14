@@ -1,26 +1,30 @@
-import path from 'path'
-import { copyDir, getFileList } from "../utils"
+import path from 'path';
+import { copyDir, getFileList } from '../utils';
 
-function init(){
-  const files = new Set<string>()
-  const pathFolderCore = path.join(__dirname, '..', '..', 'src', 'base', 'core')
+async function init(basedPath: string[], destPath: string[]) {
+  const files = new Set<string>();
+  const pathFolderCore = path.join(__dirname, ...basedPath);
+
   getFileList(pathFolderCore)
-  .filter(file =>  !file.includes('.spec'))
-  .map(file => {
-    const values = file.split('/')
-    values.pop()
+    .filter((file) => !file.includes('.spec'))
+    .map((file) => {
+      const values = file.split('/');
+      values.pop();
 
-    return values.join('/')
-  })
-  .forEach(file => files.add(file))
+      return values.join('/');
+    })
+    .forEach((file) => files.add(file));
 
-  Array.from(files.values())
-  .forEach(file => copyDir({
-    src: file,
-    dest: file.replace(pathFolderCore, 'src/core'),
-    ignore: '.spec.ts',
-    callback: console.log
-  }))
+  await Promise.all(
+    Array.from(files.values()).map((file) =>
+      copyDir({
+        src: file,
+        dest: file.replace(pathFolderCore, destPath.join('/')),
+        ignore: '.spec.ts',
+        callback: console.log,
+      }),
+    ),
+  );
 }
 
-export { init }
+export { init };

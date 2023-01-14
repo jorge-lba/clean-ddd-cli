@@ -1,13 +1,15 @@
 import { IUseCaseEvent } from './use-case-events.interface';
 
 export class UseCaseEvents {
-  private static handlersMap: {[key: string]: any} = {};
+  private static handlersMap: { [key: string]: any } = {};
 
   public static register(
     callback: (event: IUseCaseEvent) => void,
     eventClassName: string,
   ): void {
-    if (!this.handlersMap.hasOwnProperty(eventClassName)) {
+    if (
+      !Object.prototype.hasOwnProperty.call(this.handlersMap, eventClassName)
+    ) {
       this.handlersMap[eventClassName] = [];
     }
     this.handlersMap[eventClassName].push(callback);
@@ -21,7 +23,7 @@ export class UseCaseEvents {
     const thisClass = Reflect.getPrototypeOf(this);
     const useCaseEventClass = Reflect.getPrototypeOf(useCaseEvent);
     console.info(
-      `[UseCase Event Dispatched]:`,
+      '[UseCase Event Dispatched]:',
       thisClass?.constructor.name,
       '==>',
       useCaseEventClass?.constructor.name,
@@ -31,7 +33,9 @@ export class UseCaseEvents {
   static dispatch(event: IUseCaseEvent): void {
     const eventClassName: string = event.constructor.name;
 
-    if (this.handlersMap.hasOwnProperty(eventClassName)) {
+    if (
+      Object.prototype.hasOwnProperty.call(this.handlersMap, eventClassName)
+    ) {
       const handlers: any[] = this.handlersMap[eventClassName];
       for (const handler of handlers) {
         handler(event);
@@ -45,7 +49,9 @@ export class UseCaseEvents {
     const eventClassName: string = event.constructor.name;
     const responses: Array<Promise<any>> = [];
 
-    if (this.handlersMap.hasOwnProperty(eventClassName)) {
+    if (
+      Object.prototype.hasOwnProperty.call(this.handlersMap, eventClassName)
+    ) {
       const handlers: any[] = this.handlersMap[eventClassName];
       for (const handler of handlers) {
         responses.push(handler(event));

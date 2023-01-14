@@ -88,16 +88,16 @@ export function fail(error: Error): IHttpResponse<ErrorBody> {
 }
 
 type ErrorBody = {
-  error: string
-}
+  error: string;
+};
 
 type ManyErrorBody = {
-  error: string,
-  message: string
-}
+  error: string;
+  message: string;
+};
 
 type ManyErrors = {
-  errors: ManyErrorBody[]
-}
+  errors: ManyErrorBody[];
+};
 
 type ObjectAny = { [key: string]: any };

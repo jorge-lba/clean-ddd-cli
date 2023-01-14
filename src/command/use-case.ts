@@ -1,41 +1,45 @@
-import path from 'path'
-import { camelize, copyDir, getFileList, upperFirstLetter } from "../utils"
+import path from 'path';
+import { camelize, copyDir, getFileList, upperFirstLetter } from '../utils';
 
-function useCase(moduleName: string, useCaseName: string){
-  const files = new Set<string>()
-  
+function useCase(moduleName: string, useCaseName: string) {
+  const files = new Set<string>();
+
   const pathFolder = path.join(
-    __dirname, 
-    '..', 
-    '..', 
+    __dirname,
+    '..',
+    '..',
     'src',
-    'base', 
-    'modules', 
-    'generic', 
-    'use-case', 
-    'generic-use-case'
-  )
+    'base',
+    'modules',
+    'generic',
+    'use-case',
+    'generic-use-case',
+  );
 
   getFileList(pathFolder)
-    .map(file => {
-      const values = file.split('/')
-      values.pop()
+    .map((file) => {
+      const values = file.split('/');
+      values.pop();
 
-      return values.join('/')
+      return values.join('/');
     })
-    .forEach(file => files.add(file))
+    .forEach((file) => files.add(file));
 
-  Array.from(files.values())
-    .forEach(file => copyDir({
+  Array.from(files.values()).forEach((file) =>
+    copyDir({
       src: file,
-      dest: file.replace(pathFolder, `src/modules/${moduleName}/use-case/${useCaseName}`),
+      dest: file.replace(
+        pathFolder,
+        `src/modules/${moduleName}/use-case/${useCaseName}`,
+      ),
       ignore: '.spec.ts',
       callback: console.log,
       replaceWord: {
         current: 'Generic',
-        next: upperFirstLetter(camelize(useCaseName))
-      }
-    }))
+        next: upperFirstLetter(camelize(useCaseName)),
+      },
+    }),
+  );
 }
 
-export { useCase }
+export { useCase };

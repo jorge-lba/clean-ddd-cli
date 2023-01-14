@@ -8,7 +8,7 @@ describe('MissingRequiredFields', () => {
       context: 'any_context',
       date: expect.any(Date),
       message: `Some fields were not provided: ${fields}`,
-      name: 'MissingRequiredField',
+      name: 'MissingRequiredFieldError',
     };
 
     const requiredFieldError = new MissingRequiredFieldError({
@@ -27,7 +27,7 @@ describe('MissingRequiredFields', () => {
       context: 'any_context',
       date: expect.any(Date),
       message: `Some fields were not provided: ${fields}`,
-      name: 'MissingRequiredField',
+      name: 'MissingRequiredFieldError',
     };
 
     const requiredFieldError = new MissingRequiredFieldError({

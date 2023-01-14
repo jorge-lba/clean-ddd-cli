@@ -10,7 +10,7 @@ export abstract class UseCaseError extends Error {
     super(message);
     this._name = this.constructor.name;
 
-    console.error(errors);
+    // console.error(errors)
   }
 
   get name() {

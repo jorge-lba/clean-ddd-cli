@@ -6,10 +6,6 @@ interface TestEntityProps {
 }
 
 class TestEntity extends Entity<TestEntityProps> {
-  constructor(props: TestEntityProps, id?: string) {
-    super(props, id);
-  }
-
   static create(props: TestEntityProps, id?: string) {
     return new TestEntity(props, id);
   }

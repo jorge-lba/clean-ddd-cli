@@ -1,11 +1,7 @@
 import { DomainError } from './DomainError';
 import { UseCaseError } from './UseCaseError';
 
-class TestUseCaseError extends UseCaseError {
-  constructor(errors: string | DomainError[]) {
-    super(errors);
-  }
-}
+class TestUseCaseError extends UseCaseError {}
 
 describe('Errors - UseCase', () => {
   it('should map correctly the error name and message', async () => {

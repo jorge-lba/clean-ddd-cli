@@ -1,5 +1,5 @@
-import { DomainEvents } from "../../domain/events";
-import { IRepository } from "../../protocols";
+import { DomainEvents } from '../../domain/events';
+import { IRepository } from '../../protocols';
 
 export abstract class RepositoryInMemory<Entity>
   implements IRepository<Entity>

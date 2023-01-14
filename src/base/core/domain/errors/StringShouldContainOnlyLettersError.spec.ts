@@ -16,7 +16,7 @@ describe('Domain Error - StringShouldContainOnlyLetters', () => {
       context,
       date: expect.any(Date),
       message: `The ${fieldName} field must contain only letters.`,
-      name: 'StringShouldContainOnlyLetters',
+      name: 'StringShouldContainOnlyLettersError',
     });
   });
 });

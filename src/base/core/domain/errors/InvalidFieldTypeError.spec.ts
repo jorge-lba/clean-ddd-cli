@@ -10,7 +10,7 @@ describe('InvalidFieldTypeError', () => {
       context: 'any_context',
       date: expect.any(Date),
       message: `The type of ${field} is invalid. Instead, use ${correctType}.`,
-      name: 'InvalidFieldType',
+      name: 'InvalidFieldTypeError',
     };
 
     const invalidFieldTypeError = new InvalidFieldTypeError({

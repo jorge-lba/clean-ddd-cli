@@ -5,10 +5,6 @@ type FakeProps = {
 };
 
 class FakeValueObject extends ValueObject<FakeProps> {
-  constructor(props: FakeProps, id?: string) {
-    super(props, id);
-  }
-
   static create(values: FakeProps, id?: string): FakeValueObject {
     return new FakeValueObject(values, id);
   }

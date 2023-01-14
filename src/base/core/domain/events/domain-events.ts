@@ -2,7 +2,7 @@ import { IDomainEvent } from './domain-events.interface';
 import { Aggregate } from '../aggregate';
 
 export class DomainEvents {
-  private static handlersMap: {[key: string]: any} = {};
+  private static handlersMap: { [key: string]: any } = {};
   private static markedAggregates: Aggregate<any>[] = [];
 
   /**
@@ -37,12 +37,12 @@ export class DomainEvents {
   private static findMarkedAggregateByID(id: string): Aggregate<any> {
     let found: Aggregate<any> | null = null;
     for (const aggregate of this.markedAggregates) {
-      if (aggregate.id == id) {
+      if (aggregate.id === id) {
         found = aggregate;
       }
     }
 
-    if(!found) throw new Error('Marked Aggregate not found.')
+    if (!found) throw new Error('Marked Aggregate not found.');
 
     return found;
   }
@@ -61,7 +61,9 @@ export class DomainEvents {
     callback: (event: IDomainEvent) => void,
     eventClassName: string,
   ): void {
-    if (!this.handlersMap.hasOwnProperty(eventClassName)) {
+    if (
+      Object.prototype.hasOwnProperty.call(this.handlersMap, eventClassName)
+    ) {
       this.handlersMap[eventClassName] = [];
     }
     this.handlersMap[eventClassName].push(callback);
@@ -78,7 +80,9 @@ export class DomainEvents {
   private static dispatch(event: IDomainEvent): void {
     const eventClassName: string = event.constructor.name;
 
-    if (this.handlersMap.hasOwnProperty(eventClassName)) {
+    if (
+      Object.prototype.hasOwnProperty.call(this.handlersMap, eventClassName)
+    ) {
       const handlers: any[] = this.handlersMap[eventClassName];
       for (const handler of handlers) {
         handler(event);
