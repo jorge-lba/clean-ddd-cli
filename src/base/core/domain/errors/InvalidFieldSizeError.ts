@@ -1,12 +1,12 @@
-import { DomainError } from './DomainError';
+import { DomainError } from './DomainError'
 
 export class InvalidFieldSizeError extends DomainError {
-  constructor(props: InvalidFieldSizeErrorProps) {
+  constructor (props: InvalidFieldSizeErrorProps) {
     super({
       name: 'InvalidFieldSizeError',
       message: `The maximum size of the ${props.field} field is ${props.maxSize}`,
-      context: props.context,
-    });
+      context: props.context
+    })
   }
 }
 

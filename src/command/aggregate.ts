@@ -1,15 +1,15 @@
 import path from 'path'
-import { camelize, copyFile, upperFirstLetter } from "../utils"
+import { camelize, copyFile, upperFirstLetter } from '../utils'
 
-function aggregate(moduleName: string, aggregateName: string){
+function aggregate (moduleName: string, aggregateName: string) {
   const pathFolder = path.join(
-    __dirname, 
-    '..', 
-    '..', 
-    'src', 
-    'base', 
-    'modules', 
-    'generic', 
+    __dirname,
+    '..',
+    '..',
+    'src',
+    'base',
+    'modules',
+    'generic',
     'domain',
     'generic.aggregate.ts'
   )

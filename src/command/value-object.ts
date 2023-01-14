@@ -1,15 +1,15 @@
 import path from 'path'
-import { camelize, copyFile, upperFirstLetter } from "../utils"
+import { camelize, copyFile, upperFirstLetter } from '../utils'
 
-function valueObject(moduleName: string, valueObjectName: string){
+function valueObject (moduleName: string, valueObjectName: string) {
   const pathFolder = path.join(
-    __dirname, 
-    '..', 
-    '..', 
-    'src', 
-    'base', 
-    'modules', 
-    'generic', 
+    __dirname,
+    '..',
+    '..',
+    'src',
+    'base',
+    'modules',
+    'generic',
     'domain',
     'value-object',
     'generic.value-object.ts'

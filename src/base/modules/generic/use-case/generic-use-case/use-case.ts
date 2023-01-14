@@ -1,17 +1,14 @@
-import { left, right } from "../../../../core/shared/logic/Either";
-import { GenericDTO, GenericResponseDTO } from "./dto";
-import { GenericUseCaseReturn, IGenericUseCase } from "./type";
+import { left, right } from '../../../../core/shared/logic/Either'
+import { GenericDTO, GenericResponseDTO } from './dto'
+import { GenericUseCaseReturn, IGenericUseCase } from './type'
 
 export class GenericUseCase
-  implements IGenericUseCase
-{
-  constructor() {}
-
-  async handle(
-    dto: GenericDTO,
+implements IGenericUseCase {
+  async handle (
+    dto: GenericDTO
   ): Promise<GenericUseCaseReturn> {
     const isError = new Error('Method not implemented!')
-    if(isError instanceof Error) {
+    if (isError instanceof Error) {
       return left(isError)
     }
 

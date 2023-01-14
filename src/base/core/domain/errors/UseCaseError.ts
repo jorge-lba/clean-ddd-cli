@@ -1,25 +1,25 @@
-import { DomainError } from './DomainError';
+import { DomainError } from './DomainError'
 
 export abstract class UseCaseError extends Error {
-  private _name: string;
+  private _name: string
 
-  constructor(errors: string | DomainError[]) {
+  constructor (errors: string | DomainError[]) {
     const message = Array.isArray(errors)
       ? UseCaseError.makeMessage(errors)
-      : errors;
-    super(message);
-    this._name = this.constructor.name;
+      : errors
+    super(message)
+    this._name = this.constructor.name
 
-    console.error(errors);
+    console.error(errors)
   }
 
-  get name() {
-    return this._name;
+  get name () {
+    return this._name
   }
 
-  static makeMessage(errors: DomainError[]): string {
-    const messages = errors.map((error) => error.message).join('\n');
+  static makeMessage (errors: DomainError[]): string {
+    const messages = errors.map((error) => error.message).join('\n')
 
-    return `\n ${messages}`;
+    return `\n ${messages}`
   }
 }

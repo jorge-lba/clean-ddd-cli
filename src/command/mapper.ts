@@ -1,28 +1,27 @@
 import path from 'path'
-import { camelize, camelToSnakeCase, copyFile, upperFirstLetter } from "../utils"
+import { camelize, camelToSnakeCase, copyFile, upperFirstLetter } from '../utils'
 
-function mapper(moduleName: string, mapperName: string, type: string, force?:boolean){
+function mapper (moduleName: string, mapperName: string, type: string, force?:boolean) {
   console.log(type)
   const pathFolder = path.join(
-    __dirname, 
-    '..', 
-    '..', 
-    'src', 
-    'base', 
-    'modules', 
-    'generic', 
-    'mapper', 
+    __dirname,
+    '..',
+    '..',
+    'src',
+    'base',
+    'modules',
+    'generic',
+    'mapper',
     'generic.mapper.ts'
   )
-  
-  const name= camelToSnakeCase(mapperName)
-  const compositeName = type !== 'value-object' ? `${name}-${type}` : name
 
+  const name = camelToSnakeCase(mapperName)
+  const compositeName = type !== 'value-object' ? `${name}-${type}` : name
 
   copyFile({
     src: pathFolder,
     dest: pathFolder.replace(
-      pathFolder, 
+      pathFolder,
       `src/modules/${moduleName}/mapper/${name}.${type}.mapper.ts`
     ),
     ignore: '.spec.ts',

@@ -1,26 +1,26 @@
 import path from 'path'
-import { camelize, copyFile, upperFirstLetter } from "../utils"
+import { camelize, copyFile, upperFirstLetter } from '../utils'
 
-function repository(moduleName: string, repositoryName: string){
+function repository (moduleName: string, repositoryName: string) {
   const pathFolderInterface = path.join(
-    __dirname, 
-    '..', 
-    '..', 
-    'src', 
-    'base', 
-    'modules', 
+    __dirname,
+    '..',
+    '..',
+    'src',
+    'base',
+    'modules',
     'generic',
     'repository',
     'generic.repository.interface.ts'
   )
 
   const pathFolderImplementation = path.join(
-    __dirname, 
-    '..', 
-    '..', 
-    'src', 
-    'base', 
-    'modules', 
+    __dirname,
+    '..',
+    '..',
+    'src',
+    'base',
+    'modules',
     'generic',
     'repository',
     'implementation',
@@ -28,12 +28,12 @@ function repository(moduleName: string, repositoryName: string){
   )
 
   const pathFolderInMemory = path.join(
-    __dirname, 
-    '..', 
-    '..', 
-    'src', 
-    'base', 
-    'modules', 
+    __dirname,
+    '..',
+    '..',
+    'src',
+    'base',
+    'modules',
     'generic',
     'repository',
     'in-memory',

@@ -2,30 +2,30 @@ import fs from 'fs'
 import path from 'path'
 import { camelToSnakeCase } from '../utils'
 
-export function autoMapperByDomainProps(dest: string, idType: 'string' | 'number', type?: string) {
+export function autoMapperByDomainProps (dest: string, idType: 'string' | 'number', type?: string) {
   const file = dest?.split('/').pop()?.replace('mapper.', '')
-  if(!file) throw new Error('File not is valid')
-  
+  if (!file) throw new Error('File not is valid')
+
   const toDomain = fs.readFileSync(
     path.join(
-      '.', 
-      'src', 
-      'modules', 
-      dest?.split('/')[2], 
+      '.',
+      'src',
+      'modules',
+      dest?.split('/')[2],
       'domain',
-      type === 'value-object' ? 'value-object' : '', 
+      type === 'value-object' ? 'value-object' : '',
       file
-    ), 
+    ),
     'utf-8'
   )
   const params = toDomain.match(/type ([\S\s]*?)Props = \{([\S\s]*?)\}/)?.[0]
 
-const toPersistenceProps = 
+  const toPersistenceProps =
 `type ToPersistenceProps = {
   id: ${idType} | null;
 
 ${params?.split('\n').slice(1, -1).map(item => {
-  const [ key, value ] = item.split(':')
+  const [key, value] = item.split(':')
 
   return `${camelToSnakeCase(key)}: ${value.trim()}`
 }).join('\n')}
@@ -35,21 +35,20 @@ ${params?.split('\n').slice(1, -1).map(item => {
   deleted_at?: Date;
 }`
 
+  const toPersistence = fs.readFileSync(path.join(dest), 'utf-8')
+  const item = toPersistence
+    .match(/\(item: ([\S\s]*?)\)/)?.[0]
+    .replace('(item: ', '')
+    .replace(')', '')
 
-const toPersistence = fs.readFileSync(path.join(dest), 'utf-8')
-const item = toPersistence
-  .match(/\(item: ([\S\s]*?)\)/)?.[0]
-  .replace('(item: ', '')
-  .replace(')', '')
-
-const toDomainMapper = 
+  const toDomainMapper =
 `toDomain(props: ToPersistenceProps): ${item} {
     const valueObjectOrError = ${item}.create(
       {
         ${
           params?.split('\n').slice(1, -1).map(item => {
-            const [ key ] = item.split(':')
-          
+            const [key] = item.split(':')
+
             return `${key.trim()}: props.${camelToSnakeCase(key.trim())},`
           }).join('\n\t\t\t\t')
         }
@@ -69,7 +68,7 @@ const toDomainMapper =
     return valueObjectOrError
   }`
 
-const toPersistenceMapper = 
+  const toPersistenceMapper =
 `toPersistence(item: ${item}): ToPersistenceProps {
     const props = item.props
 
@@ -78,8 +77,8 @@ const toPersistenceMapper =
 
       ${
         params?.split('\n').slice(1, -1).map(item => {
-          const [ key ] = item.split(':')
-        
+          const [key] = item.split(':')
+
           return `${camelToSnakeCase(key.trim())}: props.${key.trim()},`
         }).join('\n\t\t\t')
       }
@@ -90,10 +89,10 @@ const toPersistenceMapper =
     }
   }`
 
-const mapperData = toPersistence
-  .replace(/type ToPersistenceProps = \{([\S\s]*?)\}/, toPersistenceProps)
-  .replace(/toPersistence\(item: ([\S\s]*?)\): ToPersistenceProps \{([\S\s]*?)\}/, toPersistenceMapper)
-  .replace(/toDomain\(props: ToPersistenceProps\): ([\S\s]*?) \{([\S\s]*?)\}/, toDomainMapper)
+  const mapperData = toPersistence
+    .replace(/type ToPersistenceProps = \{([\S\s]*?)\}/, toPersistenceProps)
+    .replace(/toPersistence\(item: ([\S\s]*?)\): ToPersistenceProps \{([\S\s]*?)\}/, toPersistenceMapper)
+    .replace(/toDomain\(props: ToPersistenceProps\): ([\S\s]*?) \{([\S\s]*?)\}/, toDomainMapper)
 
-fs.writeFileSync(path.join(dest), mapperData)
+  fs.writeFileSync(path.join(dest), mapperData)
 }

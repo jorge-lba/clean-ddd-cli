@@ -1,18 +1,18 @@
 import path from 'path'
-import { camelize, copyDir, getFileList, upperFirstLetter } from "../utils"
+import { camelize, copyDir, getFileList, upperFirstLetter } from '../utils'
 
-function useCase(moduleName: string, useCaseName: string){
+function useCase (moduleName: string, useCaseName: string) {
   const files = new Set<string>()
-  
+
   const pathFolder = path.join(
-    __dirname, 
-    '..', 
-    '..', 
+    __dirname,
+    '..',
+    '..',
     'src',
-    'base', 
-    'modules', 
-    'generic', 
-    'use-case', 
+    'base',
+    'modules',
+    'generic',
+    'use-case',
     'generic-use-case'
   )
 

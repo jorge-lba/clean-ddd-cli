@@ -1,9 +1,9 @@
-import { IDomainEvent } from './domain-events.interface';
-import { Aggregate } from '../aggregate';
+import { IDomainEvent } from './domain-events.interface'
+import { Aggregate } from '../aggregate'
 
 export class DomainEvents {
-  private static handlersMap: {[key: string]: any} = {};
-  private static markedAggregates: Aggregate<any>[] = [];
+  private static handlersMap: {[key: string]: any} = {}
+  private static markedAggregates: Aggregate<any>[] = []
 
   /**
    * @method markAggregateForDispatch
@@ -13,75 +13,75 @@ export class DomainEvents {
    * the unit of work.
    */
 
-  public static markAggregateForDispatch(aggregate: Aggregate<any>): void {
-    const aggregateFound = !!this.findMarkedAggregateByID(aggregate.id);
+  public static markAggregateForDispatch (aggregate: Aggregate<any>): void {
+    const aggregateFound = !!this.findMarkedAggregateByID(aggregate.id)
 
     if (!aggregateFound) {
-      this.markedAggregates.push(aggregate);
+      this.markedAggregates.push(aggregate)
     }
   }
 
-  private static dispatchAggregateEvents(aggregate: Aggregate<any>): void {
+  private static dispatchAggregateEvents (aggregate: Aggregate<any>): void {
     aggregate.domainEvents.forEach((event: IDomainEvent) =>
-      this.dispatch(event),
-    );
+      this.dispatch(event)
+    )
   }
 
-  private static removeAggregateFromMarkedDispatchList(
-    aggregate: Aggregate<any>,
+  private static removeAggregateFromMarkedDispatchList (
+    aggregate: Aggregate<any>
   ): void {
-    const index = this.markedAggregates.findIndex((a) => a.equals(aggregate));
-    this.markedAggregates.splice(index, 1);
+    const index = this.markedAggregates.findIndex((a) => a.equals(aggregate))
+    this.markedAggregates.splice(index, 1)
   }
 
-  private static findMarkedAggregateByID(id: string): Aggregate<any> {
-    let found: Aggregate<any> | null = null;
+  private static findMarkedAggregateByID (id: string): Aggregate<any> {
+    let found: Aggregate<any> | null = null
     for (const aggregate of this.markedAggregates) {
-      if (aggregate.id == id) {
-        found = aggregate;
+      if (aggregate.id === id) {
+        found = aggregate
       }
     }
 
-    if(!found) throw new Error('Marked Aggregate not found.')
+    if (!found) throw new Error('Marked Aggregate not found.')
 
-    return found;
+    return found
   }
 
-  public static dispatchEventsForAggregate(id: string): void {
-    const aggregate = this.findMarkedAggregateByID(id);
+  public static dispatchEventsForAggregate (id: string): void {
+    const aggregate = this.findMarkedAggregateByID(id)
 
     if (aggregate) {
-      this.dispatchAggregateEvents(aggregate);
-      aggregate.clearEvents();
-      this.removeAggregateFromMarkedDispatchList(aggregate);
+      this.dispatchAggregateEvents(aggregate)
+      aggregate.clearEvents()
+      this.removeAggregateFromMarkedDispatchList(aggregate)
     }
   }
 
-  public static register(
+  public static register (
     callback: (event: IDomainEvent) => void,
-    eventClassName: string,
+    eventClassName: string
   ): void {
-    if (!this.handlersMap.hasOwnProperty(eventClassName)) {
-      this.handlersMap[eventClassName] = [];
+    if (Object.prototype.hasOwnProperty.call(this.handlersMap, eventClassName)) {
+      this.handlersMap[eventClassName] = []
     }
-    this.handlersMap[eventClassName].push(callback);
+    this.handlersMap[eventClassName].push(callback)
   }
 
-  public static clearHandlers(): void {
-    this.handlersMap = {};
+  public static clearHandlers (): void {
+    this.handlersMap = {}
   }
 
-  public static clearMarkedAggregates(): void {
-    this.markedAggregates = [];
+  public static clearMarkedAggregates (): void {
+    this.markedAggregates = []
   }
 
-  private static dispatch(event: IDomainEvent): void {
-    const eventClassName: string = event.constructor.name;
+  private static dispatch (event: IDomainEvent): void {
+    const eventClassName: string = event.constructor.name
 
-    if (this.handlersMap.hasOwnProperty(eventClassName)) {
-      const handlers: any[] = this.handlersMap[eventClassName];
+    if (Object.prototype.hasOwnProperty.call(this.handlersMap, eventClassName)) {
+      const handlers: any[] = this.handlersMap[eventClassName]
       for (const handler of handlers) {
-        handler(event);
+        handler(event)
       }
     }
   }

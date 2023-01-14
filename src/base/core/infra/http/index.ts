@@ -7,8 +7,8 @@ import {
   notAcceptable,
   ok,
   unauthorized,
-  fail,
-} from './HttpResponse';
+  fail
+} from './HttpResponse'
 
 export {
   IHttpResponse,
@@ -19,5 +19,5 @@ export {
   unauthorized,
   forbidden,
   notAcceptable,
-  fail,
-};
+  fail
+}

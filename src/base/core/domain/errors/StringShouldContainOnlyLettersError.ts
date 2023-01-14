@@ -1,12 +1,12 @@
-import { DomainError } from './DomainError';
+import { DomainError } from './DomainError'
 
 export class StringShouldContainOnlyLettersError extends DomainError {
-  constructor(props: StringShouldContainOnlyLettersProps) {
+  constructor (props: StringShouldContainOnlyLettersProps) {
     super({
       name: 'StringShouldContainOnlyLetters',
       message: `The ${props.fieldName} field must contain only letters.`,
-      context: props.context,
-    });
+      context: props.context
+    })
   }
 }
 
