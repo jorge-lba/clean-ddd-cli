@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "string-replace-stream": "^0.0.2",
-    "yargs": "^17.5.1"
+    "yargs": "^17.6.2"
   },
   "scripts": {
     "test": "jest --bail --silent",
@@ -22,7 +22,7 @@
     "@swc/jest": "^0.2.24",
     "@types/jest": "^29.2.5",
     "@types/node": "^18.7.23",
-    "@types/yargs": "^17.0.13",
+    "@types/yargs": "^17.0.19",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",
     "docsify-cli": "^4.4.4",
