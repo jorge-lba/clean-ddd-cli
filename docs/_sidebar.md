@@ -1,3 +1,5 @@
 <!-- - [**Inicio Rápido**](quickstart.md) -->
+
 - [**Inicio**](README.md)
-- [**Commandos**](commands.md)
+- [**Começando**](./readme-files/quickstart.md)
+- [**Commandos**](./readme-files/commands.md)
