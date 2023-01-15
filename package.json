@@ -15,7 +15,8 @@
     "test:stage": "jest $(git ls-files --other --modified --exclude-standard | grep \".spec.ts\")",
     "test:stage:watch": "yarn nodemon -e spec.ts -x \"yarn test:stage --watch --bail && echo\"",
     "test:heap:inspect": "node --inspect-brk node_modules/.bin/jest",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "doc:run": "yarn docsify serve docs"
   },
   "devDependencies": {
     "@swc/core": "^1.3.26",
