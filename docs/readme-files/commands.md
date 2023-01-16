@@ -29,6 +29,7 @@ Após rodar o comando você poderá ver a seguinte estrutura de pastas em seu pr
             └── mock
 ```
 
+---
 ## create aggregate
 O comando `create aggregate` irá criar um agregado de domínio em uma pasta domain dentro de um módulo, para rodar este comando será preciso usar duas flags: 
     - `-m` indica há qual módulo este agregado pertence
@@ -38,6 +39,7 @@ npx clean-ddd-cli create aggregate -m user -n account
 ```
 Ao rodar este comando você terá um _AccountAggregate_ na pasta `domain` no módulo _user_ 
 
+---
 ## create entity
 O comando `create entity` irá criar uma entidade de domínio em uma pasta domain dentro de um módulo, para rodar este comando será preciso usar duas flags: 
     - `-m` indica há qual módulo esta entidade pertence
@@ -47,6 +49,7 @@ npx clean-ddd-cli create entity -m user -n profile
 ```
 Ao rodar este comando você terá um _ProfileEntity_ na pasta `domain` no módulo _user_ 
 
+---
 ## create value-object
 O comando `create value-object` irá criar um valor de objeto em uma pasta domain/value-object dentro de um módulo, para rodar este comando será preciso usar duas flags: 
 - `-m` indica há qual módulo este value-object pertence
@@ -56,6 +59,7 @@ npx clean-ddd-cli create value-object -m user -n address
 ```
 Ao rodar este comando você terá um _Address_ na pasta `domain/value-object` no módulo _user_ 
 
+---
 ## create mapper
 O comando `create mapper` irá criar um mapper de uma class de domain na pasta mapper dentro de um módulo, para rodar este comando será preciso usar duas flags:
 - `-m` indica há qual módulo este mapper pertence
@@ -66,6 +70,7 @@ npx clean-ddd-cli create mapper -n address -m user -t value-object
 ```
 Ao rodar este comando você terá um _AddressMapper_ na pasta `mapper` no módulo _user_ 
 
+---
 ## create repository
 O comando `create repository` irá criar um repositório do seu agregado pasta repository dentro de um módulo, para rodar este comando será preciso usar duas flags:
 - `-m` indica há qual módulo este repositório pertence
@@ -89,6 +94,7 @@ Ao rodar este comando você terá a seguinte estrutura criada:
 ```
 
 
+---
 ## create use-case
 O comando `create use-case` irá criar uma estrutura completa para o seu caso de uso, para rodar este comando será preciso usar duas flags: 
 - `-m` indica há qual módulo o caso de uso pertence
