@@ -29,7 +29,7 @@ Você pode instalar a cli tanto como dependência de desenvolvimento em seu proj
 
 ## Sobre o DDD
 
-> Antes de qualquer coisa é importante saber que o **DDD** não é sobre tecnologia e vai alem de padrões de projetos e código. Para entender melhor recomendamos os livros [**Implementando DDD**](https://a.co/d/4n1CSUo) e o livro [**DDD: Atacando as complexidades no coração do software**](https://a.co/d/au4GoPQ). Você também pode ver os artigos do [**Khalil Stmmler**](https://khalilstemmler.com/articles/categories/domain-driven-design/) para entender mais sobre o **DDD**
+!> Antes de qualquer coisa é importante saber que o **DDD** não é sobre tecnologia e vai alem de padrões de projetos e código. Para entender melhor recomendamos os livros [**Implementando DDD**](https://a.co/d/4n1CSUo) e o livro [**DDD: Atacando as complexidades no coração do software**](https://a.co/d/au4GoPQ). Você também pode ver os artigos do [**Khalil Stmmler**](https://khalilstemmler.com/articles/categories/domain-driven-design/) para entender mais sobre o **DDD**
 
 DDD (Design Orientado ao Domínio) é uma abordagem de desenvolvimento de software que se concentra na modelagem do domínio de negócios para criar uma melhor compreensão do espaço de problema e projetar uma solução mais manutenível e escalável.
 

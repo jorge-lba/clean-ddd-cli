@@ -6,7 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="Construa seus projetos com padrões e estrutura de pastas pré-definidos sem acoplar bibliotecas em seu código.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="./styles.css">
+  <!-- Theme: Simple (light + dark) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css">
 </head>
 <body>
   <div id="app"></div>
@@ -15,15 +16,52 @@
       name: 'clean-ddd-cli',
       repo: 'jorge-lba/clean-ddd-cli',
       loadSidebar: true,
-      search: "auto",
       auto2top: true,
       homepage: 'README.md',
-      themeColor: '#fff',
-      subMaxLevel: 3
+      themeColor: '#42b983',
+      subMaxLevel: 3,
+      themeable: {
+          readyTransition : true, // default
+          responsiveTables: true  // default
+      },
+      search: {
+        noData: {
+          '/': 'No results!'
+        },
+        paths: 'auto',
+        placeholder: {
+          '/': 'Search'
+        }
+      },
+      plugins: [
+        function(hook) {
+          var footer = [
+            '<footer style="text-align: center;margin-top: 50px;">',
+            '<span> Your Project  &copy; 2020 </span>',
+            '</footer>'
+          ].join('');
+
+          hook.afterEach(function(html) {
+            return html + footer;
+          });
+        }
+      ],
+      pagination: {
+        previousText: 'anterior',
+        // or
+        nextText: 'próxima',
+        crossChapter: true,
+        crossChapterText: true,
+  },
     }
   </script>
-  <!-- Docsify v4 -->
-  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
-  <script src="https://unpkg.com/docsify-copy-code@2"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
+
+  <!-- docsify-themeable -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/js/docsify-themeable.min.js"></script>
+
 </body>
 </html>
