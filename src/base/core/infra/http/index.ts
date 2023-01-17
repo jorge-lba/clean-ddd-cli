@@ -8,7 +8,7 @@ import {
   ok,
   unauthorized,
   fail,
-} from './HttpResponse';
+} from './http-response';
 
 export {
   IHttpResponse,
