@@ -65,10 +65,10 @@ export const commandInitDescribe = () =>
       describe('errors: ', () => {
         test('DomainError.ts', async () => {
           const base = fs.readFileSync(
-            `${rootDir}/src/base/core/domain/errors/DomainError.ts`,
+            `${rootDir}/src/base/core/domain/errors/domain-error.ts`,
           );
           const generated = fs.readFileSync(
-            `${rootDir}/tmp/src/core/domain/errors/DomainError.ts`,
+            `${rootDir}/tmp/src/core/domain/errors/domain-error.ts`,
           );
 
           expect(base).toEqual(generated);
@@ -76,10 +76,10 @@ export const commandInitDescribe = () =>
 
         test('InternalDomainError.ts', async () => {
           const base = fs.readFileSync(
-            `${rootDir}/src/base/core/domain/errors/InternalDomainError.ts`,
+            `${rootDir}/src/base/core/domain/errors/internal-domain-error.ts`,
           );
           const generated = fs.readFileSync(
-            `${rootDir}/tmp/src/core/domain/errors/InternalDomainError.ts`,
+            `${rootDir}/tmp/src/core/domain/errors/internal-domain-error.ts`,
           );
 
           expect(base).toEqual(generated);
@@ -87,10 +87,10 @@ export const commandInitDescribe = () =>
 
         test('UseCaseError.ts', async () => {
           const base = fs.readFileSync(
-            `${rootDir}/src/base/core/domain/errors/UseCaseError.ts`,
+            `${rootDir}/src/base/core/domain/errors/use-case-error.ts`,
           );
           const generated = fs.readFileSync(
-            `${rootDir}/tmp/src/core/domain/errors/UseCaseError.ts`,
+            `${rootDir}/tmp/src/core/domain/errors/use-case-error.ts`,
           );
 
           expect(base).toEqual(generated);

@@ -1,5 +1,5 @@
-import { DomainError } from './DomainError';
-import { UseCaseError } from './UseCaseError';
+import { DomainError } from './domain-error';
+import { UseCaseError } from './use-case-error';
 
 class TestUseCaseError extends UseCaseError {}
 

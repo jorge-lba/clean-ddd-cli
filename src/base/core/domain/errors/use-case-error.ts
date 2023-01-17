@@ -1,4 +1,4 @@
-import { DomainError } from './DomainError';
+import { DomainError } from './domain-error';
 
 export abstract class UseCaseError extends Error {
   private _name: string;
