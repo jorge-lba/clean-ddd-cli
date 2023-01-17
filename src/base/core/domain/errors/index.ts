@@ -1,5 +1,5 @@
-import { DomainError } from './DomainError';
-import { InternalDomainError } from './InternalDomainError';
-import { UseCaseError } from './UseCaseError';
+import { DomainError } from './domain-error';
+import { InternalDomainError } from './internal-domain-error';
+import { UseCaseError } from './use-case-error';
 
 export { DomainError, InternalDomainError, UseCaseError };
