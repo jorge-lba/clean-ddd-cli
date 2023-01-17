@@ -205,10 +205,10 @@ export const commandInitDescribe = () =>
       describe('http:', () => {
         test('HttpResponse.ts', async () => {
           const base = fs.readFileSync(
-            `${rootDir}/src/base/core/infra/http/HttpResponse.ts`,
+            `${rootDir}/src/base/core/infra/http/http-response.ts`,
           );
           const generated = fs.readFileSync(
-            `${rootDir}/tmp/src/core/infra/http/HttpResponse.ts`,
+            `${rootDir}/tmp/src/core/infra/http/http-response.ts`,
           );
 
           expect(base).toEqual(generated);
