@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { describe, test, expect, afterAll } from 'vitest';
 import { init } from '../../command/inti';
 
 export const commandInitDescribe = () =>
