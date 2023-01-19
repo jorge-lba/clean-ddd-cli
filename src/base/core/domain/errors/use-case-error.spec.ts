@@ -1,3 +1,4 @@
+import { describe, it, expect, vitest } from 'vitest';
 import { DomainError } from './domain-error';
 import { UseCaseError } from './use-case-error';
 
@@ -22,7 +23,7 @@ describe('Errors - UseCase', () => {
       }
     }
 
-    const makeMessageSpy = jest.spyOn(UseCaseError, 'makeMessage');
+    const makeMessageSpy = vitest.spyOn(UseCaseError, 'makeMessage');
 
     const domainError = new TestDomainError();
     const errors = [domainError];

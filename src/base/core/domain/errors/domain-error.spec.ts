@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeAll } from 'vitest';
 import { DomainError } from './domain-error';
 
 class TestDomainError extends DomainError {

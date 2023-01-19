@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeAll } from 'vitest';
 import { InternalDomainError } from './internal-domain-error';
 
 class TestInternalDomainError extends InternalDomainError {
