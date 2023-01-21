@@ -11,6 +11,8 @@
     "yargs": "^17.6.2"
   },
   "scripts": {
+    "run:cli": "tsx src/index.ts",
+    "build": "tsc -p ./tsconfig.build.json",
     "test": "vitest",
     "test:stage": "vitest $(git ls-files --other --modified --exclude-standard | grep \".spec.ts\")",
     "test:heap:inspect": "node --inspect-brk node_modules/.bin/vitest",
