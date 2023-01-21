@@ -36,13 +36,11 @@ function upperFirstLetter(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-async function copyDir({
-  src,
-  dest,
-  callback,
-  ignore,
-  replaceWord,
-}: CopyDirProps) {
+function lowerFirstLetter(str: string) {
+  return str.charAt(0).toLocaleLowerCase() + str.slice(1);
+}
+
+async function copyDir({ src, dest, ignore, replaceWord }: CopyDirProps) {
   const copy = async (copySrc: string, copyDest: string) => {
     const list = fs.readdirSync(copySrc);
     await Promise.all(
