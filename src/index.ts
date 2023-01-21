@@ -72,7 +72,12 @@ yargs(hideBin(process.argv))
             const baseDestPath = ['src'];
 
             if (name && module) {
-              aggregate(String(module), String(name), basedPath, baseDestPath);
+              aggregate({
+                moduleName: String(module),
+                aggregateName: String(name),
+                basedPath,
+                destPath: baseDestPath,
+              });
             }
           },
         )

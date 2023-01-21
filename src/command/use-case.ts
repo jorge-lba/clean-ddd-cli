@@ -33,7 +33,6 @@ function useCase(moduleName: string, useCaseName: string) {
         `src/modules/${moduleName}/use-case/${useCaseName}`,
       ),
       ignore: '.spec.ts',
-      callback: console.log,
       replaceWord: {
         current: 'Generic',
         next: upperFirstLetter(camelize(useCaseName)),
