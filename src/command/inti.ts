@@ -21,7 +21,6 @@ async function init(basedPath: string[], destPath: string[]) {
         src: file,
         dest: file.replace(pathFolderCore, destPath.join('/')),
         ignore: '.spec.ts',
-        callback: console.log,
       }),
     ),
   );
