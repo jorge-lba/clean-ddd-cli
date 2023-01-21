@@ -1,25 +1,25 @@
 import path from 'path';
-import { camelize, copyFile, upperFirstLetter } from '../utils';
+import {
+  camelize,
+  copyFile,
+  upperFirstLetter,
+  lowerFirstLetter,
+} from '../utils';
 
-function aggregate(moduleName: string, aggregateName: string) {
-  const pathFolder = path.join(
-    __dirname,
-    '..',
-    '..',
-    'src',
-    'base',
-    'modules',
-    'generic',
-    'domain',
-    'generic.aggregate.ts',
-  );
+async function aggregate({
+  aggregateName,
+  basedPath,
+  destPath,
+  moduleName,
+}: AggregateProps) {
+  const pathFolder = path.join(__dirname, ...basedPath);
+  const dest = destPath.join('/');
 
-  copyFile({
+  await copyFile({
     src: pathFolder,
-    dest: pathFolder.replace(
-      pathFolder,
-      `src/modules/${moduleName}/domain/${aggregateName}.aggregate.ts`,
-    ),
+    dest: `${dest}/modules/${moduleName}/domain/${lowerFirstLetter(
+      aggregateName,
+    )}.aggregate.ts`,
     ignore: '.spec.ts',
     replaceWord: {
       current: 'Generic',
@@ -27,5 +27,12 @@ function aggregate(moduleName: string, aggregateName: string) {
     },
   });
 }
+
+type AggregateProps = {
+  moduleName: string;
+  aggregateName: string;
+  basedPath: string[];
+  destPath: string[];
+};
 
 export { aggregate };
