@@ -87,7 +87,7 @@ async function copyDir({
   }
 }
 
-function copyFile({
+async function copyFile({
   src,
   dest,
   ignore,
@@ -121,6 +121,11 @@ function copyFile({
   } else {
     // content.pipe(fs.createWriteStream(dest));
   }
+
+  await new Promise((resolve, reject) => {
+    content.on('end', resolve);
+    content.on('error', reject);
+  });
 }
 
 type CopyDirProps = {
