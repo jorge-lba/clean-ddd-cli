@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 // @ts-ignore
 import stringReplaceStream from 'string-replace-stream';
-import { autoMapperByDomainProps } from '../command/auto-mapper-by-domain-props';
 
 function createFile(directoryPath: string, fileName: string, content: string) {
   const values = directoryPath.split('/');
@@ -111,13 +110,10 @@ async function copyFile({
       content = content.pipe(stringReplaceStream(value.current, value.next));
     }
     content.pipe(fs.createWriteStream(dest));
-    // content.on('end', () => autoMapperByDomainProps(dest, 'string'))
   } else if (replaceWord) {
     content
       .pipe(stringReplaceStream(replaceWord?.current, replaceWord?.next))
       .pipe(fs.createWriteStream(dest));
-  } else {
-    // content.pipe(fs.createWriteStream(dest));
   }
 
   await new Promise((resolve, reject) => {
@@ -129,7 +125,6 @@ async function copyFile({
 type CopyDirProps = {
   src: string;
   dest: string;
-  callback: (err: any) => any;
   ignore?: string;
   replaceWord?: {
     current: string;
@@ -174,4 +169,5 @@ export {
   getFileList,
   copyFile,
   camelToSnakeCase,
+  lowerFirstLetter,
 };
