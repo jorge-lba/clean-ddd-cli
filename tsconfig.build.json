@@ -1,4 +1,4 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": ["./vite.config.ts", "./dist", "**/*.test.js", "**/*.spec.ts", "**/examples"],
+  "exclude": ["./vite.config.ts", "./dist", "**/*.test.js", "**/*.spec.ts", "**/examples", "./tmp"],
 }
