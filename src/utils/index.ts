@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 // @ts-ignore
 import stringReplaceStream from 'string-replace-stream';
-import { autoMapperByDomainProps } from '../command/auto-mapper-by-domain-props';
 
 function createFile(directoryPath: string, fileName: string, content: string) {
   const values = directoryPath.split('/');
@@ -36,13 +35,11 @@ function upperFirstLetter(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-async function copyDir({
-  src,
-  dest,
-  callback,
-  ignore,
-  replaceWord,
-}: CopyDirProps) {
+function lowerFirstLetter(str: string) {
+  return str.charAt(0).toLocaleLowerCase() + str.slice(1);
+}
+
+async function copyDir({ src, dest, ignore, replaceWord }: CopyDirProps) {
   const copy = async (copySrc: string, copyDest: string) => {
     const list = fs.readdirSync(copySrc);
     await Promise.all(
@@ -87,7 +84,7 @@ async function copyDir({
   }
 }
 
-function copyFile({
+async function copyFile({
   src,
   dest,
   ignore,
@@ -113,20 +110,21 @@ function copyFile({
       content = content.pipe(stringReplaceStream(value.current, value.next));
     }
     content.pipe(fs.createWriteStream(dest));
-    // content.on('end', () => autoMapperByDomainProps(dest, 'string'))
   } else if (replaceWord) {
     content
       .pipe(stringReplaceStream(replaceWord?.current, replaceWord?.next))
       .pipe(fs.createWriteStream(dest));
-  } else {
-    // content.pipe(fs.createWriteStream(dest));
   }
+
+  await new Promise((resolve, reject) => {
+    content.on('end', resolve);
+    content.on('error', reject);
+  });
 }
 
 type CopyDirProps = {
   src: string;
   dest: string;
-  callback: (err: any) => any;
   ignore?: string;
   replaceWord?: {
     current: string;
@@ -171,4 +169,5 @@ export {
   getFileList,
   copyFile,
   camelToSnakeCase,
+  lowerFirstLetter,
 };

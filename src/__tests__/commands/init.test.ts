@@ -340,6 +340,6 @@ export const commandInitDescribe = () =>
     });
 
     afterAll(() => {
-      fs.rmSync(`${process.cwd()}/tmp`, { recursive: true });
+      fs.rmSync(`${process.cwd()}/tmp/src/core`, { recursive: true });
     });
   });

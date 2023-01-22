@@ -59,8 +59,25 @@ yargs(hideBin(process.argv))
           'create aggregate',
           () => {},
           ({ name, module }) => {
+            const basedPath = [
+              '..',
+              '..',
+              'src',
+              'base',
+              'modules',
+              'generic',
+              'domain',
+              'generic.aggregate.ts',
+            ];
+            const baseDestPath = ['src'];
+
             if (name && module) {
-              aggregate(String(module), String(name));
+              aggregate({
+                moduleName: String(module),
+                aggregateName: String(name),
+                basedPath,
+                destPath: baseDestPath,
+              });
             }
           },
         )
